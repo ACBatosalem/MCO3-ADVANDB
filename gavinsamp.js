@@ -1,63 +1,92 @@
 var mysql      = require('mysql');
-var node1 = mysql.createConnection({
+var node1 = mysql.createPool({
   host     : '172.20.10.14',
   localAddress: '172.20.10.14',
   user     : 'root',
   password : 'password',
-  database : 'college_admissions'
-  
+  database : 'wdi'
 });
 
-var mysql      = require('mysql');
-var node2 = mysql.createConnection({
-  host     : '172.20.10.14',
-  localAddress: '172.20.10.14',
+/*node1.getConnection(function(err, connection){
+  connection.query('select * from series_population' , function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results);
+    connection.release();
+  });
+});*/
+var node2 = mysql.createPool({
+  host     : '172.20.10.3',
+  localAddress: '172.20.10.3',
   user     : 'root',
   password : 'password',
-  database : 'college_admissions'
-  
+  database : 'wdi'
 });
 
-var mysql      = require('mysql');
-var node3 = mysql.createConnection({
-  host     : '172.20.10.14',
-  localAddress: '172.20.10.14',
-  user     : 'root',
-  password : 'password',
-  database : 'college_admissions'
-  
-});
-
-/*
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-  console.log('connected as id ' + connection.threadId);
-});
-
-connection.query('select * from student' , function (error, results, fields) {
+/*node2.getConnection(function(err, connection){
+  connection.query('select * from series_population' , function (error, results, fields) {
     if (error) throw error;
     console.log('The solution is: ', results);
+    connection.release();
   });
+});*/
 
-connection.query('UPDATE student set name = "Gavin" where studID = "stud1"' , function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results);
-  });
-
-  connection.query('select * from student' , function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results);
-  });
-  */
-  
-  // create
 var poolCluster = mysql.createPoolCluster();
 
 // add configurations (the config is a pool config object)
-poolCluster.add(config); // add configuration with automatic name
-poolCluster.add('MASTER', masterConfig); // add a named configuration
-poolCluster.add('SLAVE1', slave1Config);
-poolCluster.add('SLAVE2', slave2Config);
+poolCluster.add('node1', {
+  host     : '172.20.10.14',
+  localAddress: '172.20.10.14',
+  user     : 'root',
+  password : 'password',
+  database : 'wdi'
+}); // add a named configuration
+poolCluster.add('node2', {
+  host     : '172.20.10.3',
+  localAddress: '172.20.10.3',
+  user     : 'root',
+  password : 'password',
+  database : 'wdi'
+});
+
+poolCluster.add('node3', {
+  host     : '172.20.10.9',
+  localAddress: '172.20.10.9',
+  user     : 'root',
+  password : 'password',
+  database : 'wdi'
+});
+
+for(i = 1; i <4; i++) {
+  poolCluster.getConnection('node'+i,function(err,connection){
+    if(err) {console.log("1");throw err;}
+    console.log("connect");
+    connection.query('update series_population set seriesname = "BIRTH RATE" where seriescode = "SP.DYN.CBRT.IN"'  
+      , function (error, results, fields) {
+      if (error) throw error;
+      console.log(connection.threadId);
+      console.log('The solution is: ', results);
+      connection.release();
+    });
+  }); 
+}
+
+/*var pool = poolCluster.of('node*','ORDER');
+pool.getConnection(function (err,connection){
+  if(err) {console.log("2");throw err;}
+  console.log("connect2");
+});
+pool.getConnection(function (err,connection){
+  if(err) {console.log("3");throw err;}
+  console.log("connect3");
+});
+pool.query('select * from series_population', function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', fields);
+  });
+
+/*poolCluster.getConnection(function(err, connection){
+  connection.query('select * from series_population' , function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results);
+  });
+});*/

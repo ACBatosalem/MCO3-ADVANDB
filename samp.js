@@ -1,10 +1,10 @@
 var mysql      = require('mysql');
-var node1 = mysql.createConnection({
-  host     : '172.20.10.14',
-  localAddress: '172.20.10.14',
+var connection = mysql.createConnection({
+  host     : '172.20.10.9',
+  localAddress: '172.20.10.9',
   user     : 'root',
   password : 'password',
-  database : 'college_admissions'
+  database : 'wdi'
   
 });
 
