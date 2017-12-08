@@ -32,16 +32,14 @@ function getEntries(request, response) {
         if(err)
             throw err;
         else {
-           // console.log(data);
-            result = data;
+            response.render(path.join(__dirname, "./../web/index.ejs"), {
+                context:context,
+                subs: data
+            });
            // console.log(result);
         }
     });
-    console.log(result);
-    response.render(path.join(__dirname, "./../web/index.ejs"), {
-        context:context,
-        subs: "result"
-    });
+    
 }
 
 

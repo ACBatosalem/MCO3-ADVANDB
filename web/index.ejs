@@ -12,7 +12,10 @@
             <button id = "getAllButton">pls click me</button>
         </form>
         <p>
-            <%=subs%>
+            <% for (s in subs) { %>     
+            <%=subs[s].seriescode%> &nbsp; <%=subs[s].seriesname%>
+            <br>
+            <% } %>
         </p>
     </body>
 
