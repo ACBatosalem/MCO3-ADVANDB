@@ -56,11 +56,12 @@ poolCluster.add('node3', {
   database : 'wdi'
 });
 
-for(i = 1; i <4; i++) {
-  poolCluster.getConnection('node'+i,function(err,connection){
+//for(i = 1; i <4; i++) {
+  /*
+  poolCluster.getConnection('node1',function(err,connection){
     if(err) {console.log("1");throw err;}
     console.log("connect");
-    connection.query('update series_population set seriesname = "BIRTH RATE" where seriescode = "SP.DYN.CBRT.IN"'  
+    connection.query('Select * from data_by_year_population'  
       , function (error, results, fields) {
       if (error) throw error;
       console.log(connection.threadId);
@@ -68,7 +69,22 @@ for(i = 1; i <4; i++) {
       connection.release();
     });
   }); 
-}
+*/
+
+ poolCluster.getConnection('node1',function(err,connection){
+  connection.beginTransaction(function(err) {
+    if(err) {console.log("1");throw err;}
+    console.log("connect");
+    connection.query('Select * from data_by_year_population'  
+      , function (error, results, fields) {
+      if (error) throw error;
+      console.log(connection.threadId);
+      console.log('The solution is: ', results);
+      connection.release();
+    });
+  });
+  }); 
+//}
 
 /*var pool = poolCluster.of('node*','ORDER');
 pool.getConnection(function (err,connection){
