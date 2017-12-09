@@ -1,22 +1,84 @@
 <html>
     <head>
-            <script src="<%=context%>/libraries/jquery/jquery-3.2.1.js" type="application/javascript"> </script>
-
-            <script> 
-                var context = "<%=context%>"; 
-            </script>
-            <script src="<%=context%>/scripts/samp.js" type="application/javascript"> </script>
+        <title>ADVANDB MCO3</title>
+        <script src="<%=context%>/libraries/jquery/jquery-3.2.1.js" type="application/javascript"> </script>
+        <script> 
+            var context = "<%=context%>"; 
+        </script>
+        <script src="<%=context%>/scripts/samp.js" type="application/javascript"> </script>
+        <script src="<%=context%>/scripts/eventListeners.js" type="application/javascript"></script>
+        <link rel='stylesheet' href='<%=context%>/stylesheet/style.css'></link>
     </head>
     <body>
-        <form action="getAll" method="POST">
-            <button id = "getAllButton">pls click me</button>
-        </form>
-        <p>
-            <% for (s in subs) { %>     
-            <%=subs[s].seriescode%> &nbsp; <%=subs[s].seriesname%>
-            <br>
-            <% } %>
-        </p>
+        <div id='container'>
+            <header id='header'>
+                <p id='header_text'>ADVANDB MCO3: Distributed Databases</p>
+            </header>
+            <section id='body'>
+                <div id='transaction_controls_div'>
+                    <p class='sect_titles'>TRANSACTION CONTROLS</p>
+                    
+                    <% for(var i=0;i<3;i++) { %>
+                        <input type='<%=input_type[1]%>' name='transaction_<%=input_type[1]%>' class='trans_<%=input_type[1]%>' value='T<%=i+1%>'>
+                        <label for='trans_<%=input_type[1]%><%=i+1%>'>Case <%=i+1%></label>
+                    <% } %>
+                    
+                    <button id='trans_run_btn' name='trans_run' type='submit'>RUN</button>
+                </div>
+                <div id='transaction_details_div'>
+                    <br>
+                    
+                    <% for(var i=0;i<3;i++) { %>
+                        <div id='trans<%=i+1%>_details_div' class='trans_details'>
+                            <p class='transDeets_titles'>Case <%=i+1%></p>
+                            
+                            <label for='case<%=i+1%>_action_dropdown'>Transaction: </label>
+                            <select id='case<%=i+1%>_action_dropdown' name='case<%=i+1%>_action_dropdown' class='action_dropdowns'>
+                                <% for(var j=0;j<transactions[i].length;j++) { %>
+                                    <option value='<%=transactions[i][j]%>'><%=transactions[i][j]%></option>
+                                <% } %>
+                            </select><br><br>
+                            
+                            <label for='case<%=i+1%>_area_dropdown'>Area: </label>
+                            <select id='case<%=i+1%>_area_dropdown' name='case<%=i+1%>_area_dropdown' class='area_dropdowns'>
+                                <% for(var j=0;j<areas.length;j++) { %>
+                                    <option value='<%=areas_tables[j]%>'><%=areas[j]%></option>
+                                <% } %>
+                            </select><br><br>
+                            
+                            <div class='select_action actions case<%=i+1%>_actions' id='case<%=i+1%>_selectDiv'>
+                                <div class='filter_options' id='case<%=i+1%>_filters'>
+                                    <input type='button' id='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                                </div>
+                            </div>
+                            
+                            <div class='insert_action actions case<%=i+1%>_actions' id='case<%=i+1%>_insertDiv'>
+                                <% for(var j=1;j<columnNames.length;j++) { %>
+                                    <label><%=columnNames[j]%>: </label>
+                                    <input type='text' name='case<%=i+1%>_insert_<%=columnNames[j]%>' id='case<%=i+1%>_insert_<%=columnNames[j]%>'><br>
+                                <% } %>   
+                            </div>
+                            
+                            <div class='update_action actions case<%=i+1%>_actions' id='case<%=i+1%>_updateDiv'>
+                                 <% for(var j=1;j<columnNames.length;j++) { %>
+                                    <label><%=columnNames[j]%>: </label>
+                                    <input type='text' name='case<%=i+1%>_update_<%=columnNames[j]%>' id='case<%=i+1%>_update_<%=columnNames[j]%>'><br>
+                                <% } %>
+                                <div class='filter_options' id='case<%=i+1%>_filters'>
+                                    <input type='button' id='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                                </div>
+                            </div>
+                            
+                            <div class='delete_action actions case<%=i+1%>_actions' id='case<%=i+1%>_deleteDiv'>
+                                 <div class='filter_options' id='case<%=i+1%>_filters'>
+                                    <input type='button' id='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                                </div>                               
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </section>
+        </div>
     </body>
 
 </html>

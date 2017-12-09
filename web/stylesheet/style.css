@@ -1,0 +1,141 @@
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial;
+}
+
+/* Header */
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10%;
+    width: 100%;
+    background: #007699;
+}
+
+#header_text {
+    font-family: Franklin Gothic;
+    font-size: 44px;
+    color: #FFF;
+    text-indent: 30px;
+    margin-top: 8px;
+}
+
+/* Body */
+#body {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    height: 85%;
+    width: 100%;
+}
+
+.sect_titles {
+    font-family: Franklin Gothic;
+    font-size: 28px;
+    color: #000;
+}
+
+/* Transaction Controls */
+#transaction_controls_div {
+    margin: 0 auto;
+    margin-top: -1%;
+    height: 25%;
+    width: 66%;
+    border-bottom: 2px solid #000;
+}
+
+#trans_run_btn {
+    position: relative;
+    display: block;
+    top: -15%;
+    left: 91.5%;
+    background: #007699;
+    font-family: Franklin Gothic;
+    font-size: 24px;
+    color: #fff;
+    border: none;
+    height: 35px;
+    width: 75px;
+}
+
+/* Transaction Details */
+#transaction_details_div {
+    margin: 0 auto;
+    //margin-top: -1%;
+    height: 45%;
+    width: 66%;
+    //border-bottom: 2px solid #000;
+    font-family: Arial;
+    font-size: 14px;
+    overflow: auto;
+}
+
+.trans_details {
+    position: relative;
+    top: -5%;
+    float: left;
+    height: 85%;
+    width: 33%;
+    //border-right: 1px solid #000;
+}
+
+.transDeets_titles {
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.action_selected {
+    visibility: hidden;
+}
+
+.case1_actions, .case2_actions, .case3_actions {
+    position: absolute;
+    top: 60%;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+/* Filtering Options */
+.filter_options {
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* Console Log */
+#console_div {
+    margin: 0 auto;
+    height: 80px;
+    width: 66%;
+}
+
+#console_textarea {
+    margin: 0 auto;
+    margin-top: -15px;
+    height: 100px;
+    width: 100%;
+}
+
+/* Footer */
+#footer {
+    position: absolute;
+    top: 95%;
+    left: 0;
+    height: 5%;
+    width: 100%;
+    background: #007699;
+}
+
+#footer_text {
+    font-family: Arial;
+    font-size: 18px;
+    color: #FFF;
+    text-align: center;
+    margin-top: 7px;
+}
