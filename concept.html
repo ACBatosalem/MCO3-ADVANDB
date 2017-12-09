@@ -1,4 +1,4 @@
-<html>
+ <html>
     <head>
         <link rel='stylesheet' type='text/css' href='style.css'>
     </head>
@@ -11,32 +11,120 @@
                 <div id='transaction_controls_div'>
                     <p class='sect_titles'>TRANSACTION CONTROLS</p>
                     
-                    <label for='isolation_level_dropdown'>Isolation Level</label>
+                    <!--<label for='isolation_level_dropdown'>Isolation Level</label>
                     <select id='isolation_level_dropdown'>
-                        <option>Read Committed</option>
                         <option>Read Uncommitted</option>
-                        <option>Write Committed</option>
-                        <option>Write Uncommitted</option>
-                    </select>
+                        <option>Read Committed</option>
+                        <option>Repeatable Read</option>
+                        <option>Serializable</option>
+                    </select><br><br>-->
+                    
+                    Granularity: 
+                    <input type='radio' name='transScale_radio' class='trans_radio' id='trans_radio1' value='Local'>
+                    <label for='trans_radio1'>Local</label>                    
+                    <input type='radio' name='transScale_radio' class='trans_radio' id='trans_radio2' value='Global'>
+                    <label for='trans_radio2'>Global</label><br><br>
                     
                     <input type='checkbox' name='transaction_chkBox' class='trans_chkBox' id='trans_chkBox1' value='T1'>
-                    <label>T1</label>
+                    <label for='trans_chkBox1'>Case 1</label>
                     <input type='checkbox' name='transaction_chkBox' class='trans_chkBox' id='trans_chkBox2' value='T2'>
-                    <label>T2</label>
+                    <label for='trans_chkBox2'>Case 2</label>
                     <input type='checkbox' name='transaction_chkBox' class='trans_chkBox' id='trans_chkBox3' value='T3'>
-                    <label>T3</label>
+                    <label for='trans_chkBox3'>Case 3</label>
                     
                     <button id='trans_run_btn' name='trans_run' type='submit'>RUN</button>
                 </div>
                 <div id='transaction_details_div'>
-                    <div id='trans1_details_div' class='trans_details'></div>
-                    <div id='trans2_details_div' class='trans_details'></div>
-                    <div id='trans3_details_div' class='trans_details'></div>
+                    <!--<p class='sect_titles'>TRANSACTION DETAILS</p>-->
+                    <br>
+                    <div id='trans1_details_div' class='trans_details'>
+                        <p class='transDeets_titles'>Case 1</p>
+                        
+                        <label for='case1_action_dropdown'>Transaction: </label>
+                        <select id='case1_action_dropdown' name='case1_action_dropdown' class='action_dropdowns'>
+                            <option>Read Table</option>
+                        </select><br><br>
+                        
+                        <label for='case1_area_dropdown'>Area: </label>
+                        <select id='case1_area_dropdown' name='case1_area_dropdown' class='area_dropdowns'>
+                            <option>All Regions</option>
+                            <option>Europe and America</option>
+                            <option>Asia and Africa</option>
+                        </select><br><br>
+                        
+                        <label for='case1_abcom_dropdown'>Abort or Commit: </label>
+                        <select id='case1_abcom_dropdown' name='case1_abcom_dropdown' class='abcom_dropdowns'>
+                            <option>Abort</option>
+                            <option>Commit</option>
+                        </select>
+                        
+                        <div class='filter_options'>
+                            <input type='button' id='case1_filterAdd' name='case1_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                        </div>
+                    </div>
+                    <div id='trans2_details_div' class='trans_details'>
+                        <p class='transDeets_titles'>Case 2</p>
+                        
+                        <label for='case2_action_dropdown'>Transaction: </label>
+                        <select id='case2_action_dropdown' name='case2_action_dropdown' class='action_dropdowns'>
+                            <option>Read Table</option>
+                            <option>Insert into Table</option>
+                            <option>Update Table</option>
+                            <option>Delete from Table</option>
+                        </select><br><br>
+                        
+                        <label for='case2_area_dropdown'>Area: </label>
+                        <select id='case2_area_dropdown' name='case2_area_dropdown' class='area_dropdowns'>
+                            <option>All Regions</option>
+                            <option>Europe and America</option>
+                            <option>Asia and Africa</option>
+                        </select><br><br>
+                        
+                        <label for='case2_abcom_dropdown'>Abort or Commit: </label>
+                        <select id='case2_abcom_dropdown' name='case2_abcom_dropdown' class='abcom_dropdowns'>
+                            <option>Abort</option>
+                            <option>Commit</option>
+                        </select>
+                        
+                        <div class='filter_options'>
+                            <input type='button' id='case1_filterAdd' name='case1_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                        </div>
+                    </div>
+                    <div id='trans3_details_div' class='trans_details'>
+                        <p class='transDeets_titles'>Case 3</p>
+                        
+                        <label for='case3_action_dropdown'>Transaction: </label>
+                        <select id='case3_action_dropdown' name='case3_action_dropdown' class='action_dropdowns'>
+                            <option>Insert into Table</option>
+                            <option>Update Table</option>
+                            <option>Delete from Table</option>
+                        </select><br><br>
+                        
+                        <label for='case3_area_dropdown'>Area: </label>
+                        <select id='case3_area_dropdown' name='case3_area_dropdown' class='area_dropdowns'>
+                            <option>All Regions</option>
+                            <option>Europe and America</option>
+                            <option>Asia and Africa</option>
+                        </select><br><br>
+                        
+                        <label for='case3_abcom_dropdown'>Abort or Commit: </label>
+                        <select id='case3_abcom_dropdown' name='case3_abcom_dropdown' class='abcom_dropdowns'>
+                            <option>Abort</option>
+                            <option>Commit</option>
+                        </select>
+                        
+                        <div class='filter_options'>
+                            <input type='button' id='case1_filterAdd' name='case1_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                        </div>
+                    </div>
+                </div>
+                <div id='console_div'>
+                    <p class='sect_titles'>CONSOLE LOG</p>
+                    <textarea id='console_textarea' name='console_textarea'>
+                    
+                    </textarea>
                 </div>
             </section>
-            <footer id='footer'>
-                <p id='footer_text'>Batosalem - Mirafuentes - Sanchez | S18</p>
-            </footer>
         </div>
     </body>
 <html>
