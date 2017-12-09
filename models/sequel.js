@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('wdi', 'root', 'password', {
+/*const sequelize = new Sequelize('wdi', 'root', 'password', {
     host: '192.168.254.104',
     dialect: 'mysql',
     pool: { // If you want to override the options used for the read/write pool you can do so here
@@ -9,18 +9,18 @@ const sequelize = new Sequelize('wdi', 'root', 'password', {
         acquire: 60000
       }
     //storage: 'C:/advandb/wdi.sqlite'
-});
-/*const sequelize = new Sequelize('wdi', 'root', 'password', {
+});*/
+const sequelize = new Sequelize('wdi', 'root', 'password', {
     dialect: 'mysql',
     port: 3306,
     replication: {
       read: [
-        { host: '192.168.254.104'}
+        { host: '/*ip nung other comp*/', username:'root', password:'password', database:'wdi'}
       ],
-      write: { host: '192.168.254.103'}
+      write: { host: '/*ip nung comp mo*/'}
     }
     
-  });*/
+  });
 
 sequelize
 .authenticate()
@@ -31,9 +31,9 @@ sequelize
   console.error('Unable to connect to the database:', err);
 });
 var data;
-/*sequelize
-.query('SELECT * FROM sample', { raw: true })
+sequelize
+.query('UPDATE all_countries set data = 22 where ID = 1', { raw: true, useMaster:true })
 .then(projects => {
     data = projects;
   console.log(projects);
-});*/
+});

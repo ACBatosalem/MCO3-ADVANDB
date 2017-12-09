@@ -93,7 +93,19 @@ $(document).ready(function() {
     var ctr1 = 0;
     $("#case1_filterAdd").click(function(){
         ctr1++;
-        var append1 = "<select id='case1_filter" + ctr1 + "'><% for(var j=1;j<columnNames.length;j++) { %><option value='columnNames[i]'>columnNames[i]</option><% } %></select><select id='case1_operator" + ctr1 + "'><% for(var j=0;j<operators.length;j++) { %><option value='operators[i]'>operators[i]</option><% } %></select><input type='text' id='case1_filter" + ctr1 + "_text'>";
+        var columnNames = $("#case1_filterAdd").attr('colName').split(",");
+        
+        var operators = $("#case1_filterAdd").attr('op').split(",");
+        
+        var append1 = "<select id='case1_filter" + ctr1 + "'>";
+        for(var j=0;j<columnNames.length;j++) { 
+            append1 += "<option value='"+columnNames[j]+"'>"+columnNames[j]+"</option>"; 
+        } 
+        append1 += "</select><select id='case1_operator" + ctr1 + "'>";
+        for(var i=0;i<operators.length;i++) { 
+            append1 += "<option value='"+operators[i]+"'>"+operators[i]+"</option>";
+         } 
+         append1 += "</select><input type='text' id='case1_filter" + ctr1 + "_text'>";
         console.log(append1);
         $("#case1_filterAdd").after(append1);
     });
