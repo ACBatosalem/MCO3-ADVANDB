@@ -1,0 +1,84 @@
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Header */
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10%;
+    width: 100%;
+    background: #007699;
+}
+
+#header_text {
+    font-family: Franklin Gothic;
+    font-size: 44px;
+    color: #FFF;
+    text-indent: 30px;
+    margin-top: 8px;
+}
+
+/* Body */
+#body {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    height: 85%;
+    width: 100%;
+}
+
+.sect_titles {
+    font-family: Franklin Gothic;
+    font-size: 24px;
+    color: #000;
+}
+
+/* Transaction Controls */
+#transaction_controls_div {
+    margin: 0 auto;
+    margin-top: 0.5%;
+    height: 25%;
+    width: 70%;
+    border-bottom: 2px solid #000;
+}
+
+#trans_run_btn {
+    position: relative;
+    display: block;
+    top: 20%;
+    left: 92%;
+    background: #007699;
+    font-family: Franklin Gothic;
+    font-size: 24px;
+    color: #fff;
+    border: none;
+    height: 35px;
+    width: 75px;
+}
+
+/* Transaction Details */
+
+
+/* Footer */
+#footer {
+    position: absolute;
+    top: 95%;
+    left: 0;
+    height: 5%;
+    width: 100%;
+    background: #007699;
+}
+
+#footer_text {
+    font-family: Arial;
+    font-size: 18px;
+    color: #FFF;
+    text-align: center;
+    margin-top: 7px;
+}

@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel='stylesheet' type='text/css' href='style.css'>
+    </head>
+    <body>
+        <div id='container'>
+            <header id='header'>
+                <p id='header_text'>ADVANDB MCO3: Distributed Databases</p>
+            </header>
+            <section id='body'>
+                <div id='transaction_controls_div'>
+                    <p class='sect_titles'>TRANSACTION CONTROLS</p>
+                    
+                    <label for='isolation_level_dropdown'>Isolation Level</label>
+                    <select id='isolation_level_dropdown'>
+                        <option>Read Committed</option>
+                        <option>Read Uncommitted</option>
+                        <option>Write Committed</option>
+                        <option>Write Uncommitted</option>
+                    </select>
+                    
+                    <input type='checkbox' name='transaction_chkBox' class='trans_chkBox' id='trans_chkBox1' value='T1'>
+                    <label>T1</label>
+                    <input type='checkbox' name='transaction_chkBox' class='trans_chkBox' id='trans_chkBox2' value='T2'>
+                    <label>T2</label>
+                    <input type='checkbox' name='transaction_chkBox' class='trans_chkBox' id='trans_chkBox3' value='T3'>
+                    <label>T3</label>
+                    
+                    <button id='trans_run_btn' name='trans_run' type='submit'>RUN</button>
+                </div>
+                <div id='transaction_details_div'>
+                    <div id='trans1_details_div' class='trans_details'></div>
+                    <div id='trans2_details_div' class='trans_details'></div>
+                    <div id='trans3_details_div' class='trans_details'></div>
+                </div>
+            </section>
+            <footer id='footer'>
+                <p id='footer_text'>Batosalem - Mirafuentes - Sanchez | S18</p>
+            </footer>
+        </div>
+    </body>
+<html>
