@@ -46,10 +46,8 @@ function home (request, response) {
 }
 
 function getEntries(request, response) {
-    service.getData(function (err, data){
-        if(err)
-            throw err;
-        else {
+    service.getData(function (data){
+        
             response.render(path.join(__dirname, "./../web/index.ejs"), {
                 context:context,
                 subs: data,
@@ -61,7 +59,7 @@ function getEntries(request, response) {
                 columnNames: columnNames,
                 operators: operators
             });
-        }
+        
     });
 }
 
@@ -69,10 +67,10 @@ function submitQuery(request, response) {
     var newQuery = request.body.newQuery;
     console.log(newQuery);
     
-    service.submitQuery(newQuery, function(err, data) {
-        if(err)
-            throw err;
-        else {
+    service.submitQuery(newQuery, function(data) {
+        
+            console.log(data);
+            console.log("hallo");
             response.render(path.join(__dirname, "./../web/index.ejs"), {
                 context:context,
                 results: data,
@@ -83,7 +81,7 @@ function submitQuery(request, response) {
                 columnNames: columnNames,
                 operators: operators                
             });
-        }
+        
     });
 }
 

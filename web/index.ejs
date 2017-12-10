@@ -11,6 +11,7 @@
     </head>
     <body>
         <form action='submitQuery' method='POST' id='submitQueryForm'>
+            <input id="newQuery" name="newQuery" style="display:none;">
         <div id='container'>
             <header id='header'>
                 <p id='header_text'>ADVANDB MCO3: Distributed Databases</p>
@@ -84,7 +85,6 @@
                 <div id='console_div'>
                     <p class='sect_titles'>CONSOLE LOG</p>
                     <textarea id='console_textarea' name='console_textarea'>
-                        <%=results%>
                         <% for(r in results) { %>
                         <%=results[r].SeriesName%>
                         <% } %>

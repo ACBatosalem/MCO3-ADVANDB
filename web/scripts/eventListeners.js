@@ -173,18 +173,20 @@ $(document).ready(function() {
 
                 case1Query += $("#case1_action_dropdown").val() + "* ";
                 case1Query += "FROM " + $("#case1_area_dropdown").val();
-            
-                $.ajax({
+                $("#newQuery").val(case1Query);
+                console.log($("#newQuery").val());
+                this.submit();
+               /* $.ajax({
                     type        : 'POST',
                     url         : 'submitQuery',
                     data        : {newQuery: case1Query},
-                    dataType    : 'text',
+                    dataType    : 'html',
                     success     : function(data) {
-                                    //console.log(data);
+                                    console.log(data);
                                     $("#console_textarea").text();
                                     $("#console_textarea").text(data);
                                   }
-                });
+                });*/
                 return true;
             }
         }

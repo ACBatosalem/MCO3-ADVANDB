@@ -1,51 +1,26 @@
 var mysql = require('mysql');
 var path = require("path");
+const Sequelize = require('sequelize');
 
 var utils = require("./../utils/utils");
 
-var poolCluster;
+const node3 = new Sequelize('wdi', 'root', 'password', {
+  dialect: 'sqlite',
+  port: 3306,
+  host: "172.20.10.9",
+  storage: 'C:/advandb/wdi.sqlite'
+});;
 var dataOut;
 exports.service = [];
 
 exports.initialize = initialize;
 function initialize() {
-    poolCluster = mysql.createPoolCluster();
-    console.log("eyyy");
-    // add configurations (the config is a pool config object)
- /*   poolCluster.add('node1', {
-      host     : '172.20.10.14',
-      localAddress: '172.20.10.14',
-      user     : 'root',
-      password : 'password',
-      database : 'wdi'
-    }); // add a named configuration
-    poolCluster.add('node2', {
-      host     : '172.20.10.3',
-      localAddress: '172.20.10.3',
-      user     : 'root',
-      password : 'password',
-      database : 'wdi'
-    });
-    
-    poolCluster.add('node3', {
-      host     : '172.20.10.9',
-      localAddress: '172.20.10.9',
-      user     : 'root',
-      password : 'password',
-      database : 'wdi'
-    });*/
-    poolCluster.add('node3', {
-      //host     : 'localhost',
-      //localAddress: '172.20.10.9',
-      user     : 'root',
-      password : 'root',
-      database : 'wdi'
-    });
+   console.log("hi");
 }
 
 exports.service.getData = getData;
 function getData(callback){
-  poolCluster.getConnection('node3',function(err,connection){
+  /*poolCluster.getConnection('node3',function(err,connection){
     connection.beginTransaction(function(err) {
       if(err) {console.log("1");throw err;}
       //console.log("connect");
@@ -57,12 +32,19 @@ function getData(callback){
       });
     });
     //connection.release();
-  }); 
+  }); */
+
+  node3
+  .query('SELECT * FROM all_countries', { raw: true, useMaster:true })
+  .then(function(users) {
+    callback(users);
+    // We don't need spread here, since only the results will be returned for select queries
+  });
 }
 
 exports.service.submitQuery = submitQuery;
 function submitQuery(newQuery, callback) {
-    poolCluster.getConnection('node3', function(err,connection) {
+    /*poolCluster.getConnection('node3', function(err,connection) {
         connection.beginTransaction(function(err) {
             if(err) {throw err;}
             connection.query(newQuery, function (error, results, fields) {
@@ -71,5 +53,11 @@ function submitQuery(newQuery, callback) {
             });
         });
     //connection.release();
-    }); 
+    }); */
+    node3
+    .query(newQuery, { raw: true, type: node3.QueryTypes.SELECT})
+    .then(function(users) {
+      callback(users);
+      // We don't need spread here, since only the results will be returned for select queries
+    });
 }

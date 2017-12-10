@@ -13,12 +13,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('wdi', 'root', 'password', {
     dialect: 'mysql',
     port: 3306,
-    replication: {
-      read: [
-        { host: '/*ip nung other comp*/', username:'root', password:'password', database:'wdi'}
-      ],
-      write: { host: '/*ip nung comp mo*/'}
-    }
+    host: '172.20.10.9'
     
   });
 
@@ -31,9 +26,27 @@ sequelize
   console.error('Unable to connect to the database:', err);
 });
 var data;
-sequelize
-.query('UPDATE all_countries set data = 22 where ID = 1', { raw: true, useMaster:true })
+/*sequelize
+.query('SELECT * FROM all_countries', { raw: true, useMaster:true })
 .then(projects => {
     data = projects;
   console.log(projects);
-});
+});*/
+
+
+return sequelize.transaction(function (t) {
+  
+    // chain all your queries here. make sure you return them.
+    return sequelize
+    .query('SELECT * FROM all_countries', { raw: true}).spread(function(results, metadata) {
+      // Results will be an empty array and metadata will contain the number of affected rows.
+    })
+  
+  }).then(function (result) {
+      console.log(result);
+    // Transaction has been committed
+    // result is whatever the result of the promise chain returned to the transaction callback
+  }).catch(function (err) {
+    // Transaction has been rolled back
+    // err is whatever rejected the promise chain returned to the transaction callback
+  });
