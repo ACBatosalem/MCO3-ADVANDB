@@ -49,8 +49,8 @@
                             </select><br><br>
                             
                             <div class='select_action actions case<%=i+1%>_actions' id='case<%=i+1%>_selectDiv'><br>
-                                <input type='button' class='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
-                                <div class='filter_options case<%=i+1%>_filters'>
+                                <input type='button' class='case<%=i+1%>_filterAdd_select' name='case<%=i+1%>_filterAdd_select' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
+                                <div class='filter_options case<%=i+1%>_filters_select'>
                                     
                                 </div>
                             </div>
@@ -67,15 +67,15 @@
                                     <label><%=columnNames[j]%>: </label>
                                     <input type='text' name='case<%=i+1%>_update_<%=columnNames[j]%>' id='case<%=i+1%>_update_<%=columnNames[j]%>'><br>
                                 <% } %><br>
-                                <input type='button' class='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
-                                <div class='filter_options case<%=i+1%>_filters'>
+                                <input type='button' class='case<%=i+1%>_filterAdd_update' name='case<%=i+1%>_filterAdd_update' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
+                                <div class='filter_options case<%=i+1%>_filters_update'>
                                     
                                 </div>
                             </div>
                             
                             <div class='delete_action actions case<%=i+1%>_actions' id='case<%=i+1%>_deleteDiv'><br>
-                                <input type='button' class='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
-                                <div class='filter_options case<%=i+1%>_filters'>
+                                <input type='button' class='case<%=i+1%>_filterAdd_delete' name='case<%=i+1%>_filterAdd_delete' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
+                                <div class='filter_options case<%=i+1%>_filters_delete'>
                                     
                                 </div>
                             </div>
