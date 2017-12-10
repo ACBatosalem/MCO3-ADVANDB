@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var path = require("path");
 
-var utils       = require("./../utils/utils");
+var utils = require("./../utils/utils");
 
 var poolCluster;
 var dataOut;
@@ -44,7 +44,6 @@ function initialize() {
 }
 
 exports.service.getData = getData;
-
 function getData(callback){
   poolCluster.getConnection('node3',function(err,connection){
     connection.beginTransaction(function(err) {
@@ -59,5 +58,18 @@ function getData(callback){
     });
     //connection.release();
   }); 
-  
+}
+
+exports.service.submitQuery = submitQuery;
+function submitQuery(newQuery, callback) {
+    poolCluster.getConnection('node3', function(err,connection) {
+        connection.beginTransaction(function(err) {
+            if(err) {throw err;}
+            connection.query(newQuery, function (error, results, fields) {
+                if (error) callback(error,null);
+                callback(null,results);
+            });
+        });
+    //connection.release();
+    }); 
 }

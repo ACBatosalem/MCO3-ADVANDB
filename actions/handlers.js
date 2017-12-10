@@ -14,6 +14,7 @@ var service = database.service;
 
 execute[context+"/home"] = home;
 execute[context+"/getAll"] = getEntries;
+execute[context+"/submitQuery"] = submitQuery;
 
 database.initialize();
 
@@ -33,7 +34,7 @@ var operators = ["=", ">=", "<=", "!=", "LIKE"];
 function home (request, response) { 
     response.render(path.join(__dirname, "./../web/index.ejs"), {
         context:context,
-        subs:"",
+        results:"",
         input_type: input_type,
         transactions: transactions,
         areas: areas,
@@ -53,11 +54,37 @@ function getEntries(request, response) {
                 context:context,
                 subs: data,
                 input_type: input_type,
-                trans_choice: trans_choice
+                trans_choice: trans_choice,
+                transactions: transactions,
+                areas: areas,
+                areas_tables: areas_tables,
+                columnNames: columnNames,
+                operators: operators
             });
         }
     });
+}
+
+function submitQuery(request, response) {
+    var newQuery = request.body.newQuery;
+    console.log(newQuery);
     
+    service.submitQuery(newQuery, function(err, data) {
+        if(err)
+            throw err;
+        else {
+            response.render(path.join(__dirname, "./../web/index.ejs"), {
+                context:context,
+                results: data,
+                input_type: input_type,
+                transactions: transactions,
+                areas: areas,
+                areas_tables: areas_tables,
+                columnNames: columnNames,
+                operators: operators                
+            });
+        }
+    });
 }
 
 exports.execute = execute;

@@ -10,6 +10,7 @@
         <link rel='stylesheet' href='<%=context%>/stylesheet/style.css'></link>
     </head>
     <body>
+        <form action='submitQuery' method='POST' id='submitQueryForm'>
         <div id='container'>
             <header id='header'>
                 <p id='header_text'>ADVANDB MCO3: Distributed Databases</p>
@@ -19,7 +20,7 @@
                     <p class='sect_titles'>TRANSACTION CONTROLS</p>
                     
                     <% for(var i=0;i<3;i++) { %>
-                        <input type='<%=input_type[1]%>' name='transaction_<%=input_type[1]%>' class='trans_<%=input_type[1]%>' value='T<%=i+1%>'>
+                        <input type='<%=input_type[1]%>' name='transaction_<%=input_type[1]%>' class='trans_<%=input_type[1]%>' id='trans_chkBox_<%=i+1%>'>
                         <label for='trans_<%=input_type[1]%><%=i+1%>'>Case <%=i+1%></label>
                     <% } %>
                     
@@ -46,10 +47,10 @@
                                 <% } %>
                             </select><br><br>
                             
-                            <div class='select_action actions case<%=i+1%>_actions' id='case<%=i+1%>_selectDiv'>
-                                <div class='filter_options' id='case<%=i+1%>_filters'>
-                                    <input type='button' id='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' class='btn_filter'
-                                                colName = '<%=columnNames%>' op='<%=operators%>'>
+                            <div class='select_action actions case<%=i+1%>_actions' id='case<%=i+1%>_selectDiv'><br>
+                                <input type='button' class='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
+                                <div class='filter_options case<%=i+1%>_filters'>
+                                    
                                 </div>
                             </div>
                             
@@ -64,22 +65,33 @@
                                  <% for(var j=1;j<columnNames.length;j++) { %>
                                     <label><%=columnNames[j]%>: </label>
                                     <input type='text' name='case<%=i+1%>_update_<%=columnNames[j]%>' id='case<%=i+1%>_update_<%=columnNames[j]%>'><br>
-                                <% } %>
-                                <div class='filter_options' id='case<%=i+1%>_filters'>
-                                    <input type='button' id='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' class='btn_filter'>
+                                <% } %><br>
+                                <input type='button' class='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
+                                <div class='filter_options case<%=i+1%>_filters'>
+                                    
                                 </div>
                             </div>
                             
-                            <div class='delete_action actions case<%=i+1%>_actions' id='case<%=i+1%>_deleteDiv'>
-                                 <div class='filter_options' id='case<%=i+1%>_filters'>
-                                    <input type='button' id='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' class='btn_filter'>
-                                </div>                               
+                            <div class='delete_action actions case<%=i+1%>_actions' id='case<%=i+1%>_deleteDiv'><br>
+                                <input type='button' class='case<%=i+1%>_filterAdd' name='case<%=i+1%>_filterAdd' value='Add Filtering Option' colName = '<%=columnNames%>' op='<%=operators%>'>
+                                <div class='filter_options case<%=i+1%>_filters'>
+                                    
+                                </div>
                             </div>
                         </div>
                     <% } %>
                 </div>
-            </section>
+                <div id='console_div'>
+                    <p class='sect_titles'>CONSOLE LOG</p>
+                    <textarea id='console_textarea' name='console_textarea'>
+                        <%=results%>
+                        <% for(r in results) { %>
+                        <%=results[r].SeriesName%>
+                        <% } %>
+                    </textarea>
+                </div>
+            </section><br><br><br>
         </div>
+        </form>
     </body>
-
 </html>
