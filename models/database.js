@@ -8,8 +8,20 @@ const node3 = new Sequelize('wdi', 'root', 'password', {
   dialect: 'sqlite',
   port: 3306,
   host: "172.20.10.9",
-  storage: 'C:/advandb/wdi.sqlite'
-});;
+  storage: 'C:/advandb/wdi.sqlite/172.20.10.9'
+});
+
+const node1 = new Sequelize('wdi', 'root', 'password', {
+  dialect: 'mysql',
+  port: 3306,
+  host: "172.20.10.14"
+});
+
+const node2 = new Sequelize('wdi', 'root', 'password', {
+  dialect: 'mysql',
+  port: 3306,
+  host: "172.20.10.3"
+});
 var dataOut;
 exports.service = [];
 

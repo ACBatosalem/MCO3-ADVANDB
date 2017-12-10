@@ -11,9 +11,10 @@ const Sequelize = require('sequelize');
     //storage: 'C:/advandb/wdi.sqlite'
 });*/
 const sequelize = new Sequelize('wdi', 'root', 'password', {
-    dialect: 'mysql',
+    dialect: 'sqlite',
     port: 3306,
-    host: '172.20.10.9'
+    host: '172.20.10.9',
+    storage: 'C:/Users/Angel/Music/advandb/wdi.sqlite'
     
   });
 
@@ -26,15 +27,15 @@ sequelize
   console.error('Unable to connect to the database:', err);
 });
 var data;
-/*sequelize
-.query('SELECT * FROM all_countries', { raw: true, useMaster:true })
+sequelize
+.query('UPDATE all_countries SET data = 19 where ID = 1', { raw: true })
 .then(projects => {
     data = projects;
   console.log(projects);
-});*/
+});
 
 
-return sequelize.transaction(function (t) {
+/*return sequelize.transaction(function (t) {
   
     // chain all your queries here. make sure you return them.
     return sequelize
@@ -49,4 +50,4 @@ return sequelize.transaction(function (t) {
   }).catch(function (err) {
     // Transaction has been rolled back
     // err is whatever rejected the promise chain returned to the transaction callback
-  });
+  });*/
