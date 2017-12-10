@@ -127,9 +127,9 @@ $(document).ready(function() {
         var columnNames = $(".case" + caseNumber + "_filterAdd_" + actionType).attr('colName').split(",");
         var operators = $(".case" + caseNumber + "_filterAdd_" + actionType).attr('op').split(",");
 
-        var append = "<select class='case" + caseNumber + "_fields_" + actionType + " case" + caseNumber + "_field" + counter + "'>";
+        var append = "<select class='case" + caseNumber + "_fields_" + actionType + " case" + caseNumber + "_field" + counter + "' name='case" + caseNumber + "_fields_" + actionType + "'>";
         for(var j=0;j<columnNames.length;j++)
-            append += "<option value='" + operators[j] + "'>" + columnNames[j] + "</option>";
+            append += "<option value='" + columnNames[j] + "'>" + columnNames[j] + "</option>";
         append += "</select><select class='case" + caseNumber + "_operator" + counter + " case" + caseNumber + "_operators_" + actionType + "'>";
         for(var i=0;i<operators.length;i++)
             append += "<option value='" + operators[i] + "'>" + operators[i] + "</option>"; 
@@ -249,6 +249,7 @@ $(document).ready(function() {
                                 var multi = false;
                                 $allFilters.each(function(ind, el) {
                                     var caseCtr = ind + 1;
+                                    console.log($(el).val());
                                     if ($(".case" + caseNumber + "_filter" + caseCtr + "_text_select").val() > 0) {
                                         if (multi)
                                             caseQuery += " AND ";
@@ -282,7 +283,7 @@ $(document).ready(function() {
                                 }
                             }
                             
-                            var $allFilters = $("select[class=case" + caseNumber + "_fields_update]");
+                            var $allFilters = $("select[name=case" + caseNumber + "_fields_update]");
                             if ($allFilters.length > 0) {
                                 caseQuery += " WHERE ";
                                 var multi = false;
@@ -301,7 +302,7 @@ $(document).ready(function() {
                         case "DELETE FROM ":
                             caseQuery += $("#case" + caseNumber + "_area_dropdown").val();
                             
-                            var $allFilters = $("select[class=case" + caseNumber + "_fields_delete]");
+                            var $allFilters = $("select[name=case" + caseNumber + "_fields_delete]");
                             if ($allFilters.length > 0) {
                                 caseQuery += " WHERE ";
                                 var multi = false;
@@ -323,7 +324,7 @@ $(document).ready(function() {
             });
             $("#newQuery").val(caseQuery);
             console.log(caseQuery);
-            //this.submit();
+            this.submit();
             
             /*var case1 = $("#trans_chkBox_1").val();
             if ($("#trans_chkBox_1").is(":checked")) {
