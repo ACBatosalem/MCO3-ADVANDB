@@ -40,7 +40,8 @@ function home (request, response) {
         areas: areas,
         areas_tables: areas_tables,
         columnNames: columnNames,
-        operators: operators
+        operators: operators,
+        status: ""
         //abcom: abcom
     });
 }
@@ -65,24 +66,118 @@ function getEntries(request, response) {
 
 function submitQuery(request, response) {
     var newQuery = request.body.newQuery;
+    var actionType = request.body.actionType;
+    var node = request.body.node;
+    var checked = request.body.abort;
     console.log(newQuery);
-    
-    service.submitQuery(newQuery, function(data) {
-        
-            console.log(data);
-            console.log("hallo");
-            response.render(path.join(__dirname, "./../web/index.ejs"), {
-                context:context,
-                results: data,
-                input_type: input_type,
-                transactions: transactions,
-                areas: areas,
-                areas_tables: areas_tables,
-                columnNames: columnNames,
-                operators: operators                
-            });
-        
-    });
+    console.log(actionType);
+    console.log(node);
+    if(actionType == "SELECT ") {
+        service.submitSelectQuery(newQuery, node, checked, function(data) {
+            
+                console.log(data);
+                console.log("hallo");
+                response.render(path.join(__dirname, "./../web/index.ejs"), {
+                    context:context,
+                    results: data,
+                    input_type: input_type,
+                    transactions: transactions,
+                    areas: areas,
+                    areas_tables: areas_tables,
+                    columnNames: columnNames,
+                    operators: operators,
+                    status: ""                
+                });
+            
+        });
+    } else if(actionType == "INSERT INTO ") {
+        var querySplit = newQuery.split(" ");
+        var allQuery = querySplit;
+        allQuery[2] = "all_countries";
+        allQuery = allQuery.join(" ");
+        var europeQuery = querySplit;
+        europeQuery[2] = "europe_america";
+        europeQuery = europeQuery.join(" ");
+        var asiaQuery = querySplit;
+        asiaQuery[2] = "asia_africa";
+        asiaQuery = asiaQuery.join(" ");
+
+        service.submitInsertQuery(allQuery, europeQuery, asiaQuery, node, checked,function(data) {
+            
+                console.log(data);
+                console.log("hallo");
+                response.render(path.join(__dirname, "./../web/index.ejs"), {
+                    context:context,
+                    results: "",
+                    input_type: input_type,
+                    transactions: transactions,
+                    areas: areas,
+                    areas_tables: areas_tables,
+                    columnNames: columnNames,
+                    operators: operators,
+                    status: data                
+                });
+            
+        });
+    } else if(actionType == "UPDATE ") {
+        var querySplit = newQuery.split(" ");
+        var allQuery = querySplit;
+        allQuery[1] = "all_countries";
+        allQuery = allQuery.join(" ");
+        var europeQuery = querySplit;
+        europeQuery[1] = "europe_america";
+        europeQuery = europeQuery.join(" ");
+        var asiaQuery = querySplit;
+        asiaQuery[1] = "asia_africa";
+        asiaQuery = asiaQuery.join(" ");
+
+        service.submitUpdateQuery(allQuery, europeQuery, asiaQuery, node, checked,function(data) {
+            
+                console.log(data);
+                console.log("hallo");
+                response.render(path.join(__dirname, "./../web/index.ejs"), {
+                    context:context,
+                    results: "",
+                    input_type: input_type,
+                    transactions: transactions,
+                    areas: areas,
+                    areas_tables: areas_tables,
+                    columnNames: columnNames,
+                    operators: operators,
+                    status: data                    
+                });
+            
+        });
+    } else if(actionType == "DELETE FROM ") {
+        var querySplit = newQuery.split(" ");
+        var allQuery = querySplit;
+        allQuery[2] = "all_countries";
+        allQuery = allQuery.join(" ");
+        var europeQuery = querySplit;
+        europeQuery[2] = "europe_america";
+        europeQuery = europeQuery.join(" ");
+        var asiaQuery = querySplit;
+        asiaQuery[2] = "asia_africa";
+        asiaQuery = asiaQuery.join(" ");
+
+        service.submitDeleteQuery(allQuery, europeQuery, asiaQuery, node, checked,function(data) {
+            
+                console.log(data);
+                console.log("hallo");
+                response.render(path.join(__dirname, "./../web/index.ejs"), {
+                    context:context,
+                    results: "",
+                    input_type: input_type,
+                    transactions: transactions,
+                    areas: areas,
+                    areas_tables: areas_tables,
+                    columnNames: columnNames,
+                    operators: operators,
+                    status: data                      
+                });
+            
+        });
+    }
 }
 
 exports.execute = execute;

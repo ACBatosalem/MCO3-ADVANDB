@@ -231,10 +231,15 @@ $(document).ready(function() {
         } 
         else {
             var caseQuery = '';
+            var caseNumber;
             $allCases.each(function(index, element) {
                 if ($(element).is(":checked")) {
-                    var caseNumber = index + 1;
-                
+                    caseNumber = index + 1;
+                    if($("#abortCB").is(":checked"))
+                        $("#abort").val("yes");
+                    else $("#abort").val("no");
+                    $("#actionType").val($("#case" + caseNumber + "_action_dropdown").val());
+                    $("#node").val($("#case" + caseNumber + "_area_dropdown").val());
                     var actionType = $("#case" + caseNumber + "_action_dropdown").val();
                     caseQuery += actionType;
                     switch(actionType) {
@@ -250,10 +255,12 @@ $(document).ready(function() {
                                 $allFilters.each(function(ind, el) {
                                     var caseCtr = ind + 1;
                                     console.log($(el).val());
-                                    if ($(".case" + caseNumber + "_filter" + caseCtr + "_text_select").val() > 0) {
+                                    if ($(".case" + caseNumber + "_filter" + caseCtr + "_text_select").val() != "") {
                                         if (multi)
                                             caseQuery += " AND ";
-                                        caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_select").val() + " '" + $(".case" + caseNumber + "_filter" + caseCtr + "_text_select").val() + "'";
+                                        if($(el).val() == "ID" || $(el).val() == "Data")
+                                            caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_select").val() + " " + $(".case" + caseNumber + "_filter" + caseCtr + "_text_select").val();
+                                        else caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_select").val() + " '" + $(".case" + caseNumber + "_filter" + caseCtr + "_text_select").val() + "'";
                                         multi = true;
                                     }
                                 });
@@ -263,9 +270,11 @@ $(document).ready(function() {
                             }
                             break;
                         case "INSERT INTO ":
-                            caseQuery += $("#case" + caseNumber + "_area_dropdown").val() + " VALUES (";
+                            caseQuery += $("#case" + caseNumber + "_area_dropdown").val() + " (CountryName, CountryRegion, CountryIncome, SeriesName, Year, Data) VALUES (";
                             for (var k=1;k<dbFields.length;k++) {
-                                caseQuery += "'" + $("#case" + caseNumber + "_insert_" + dbFields[k]) + "'";
+                                if(k == dbFields.length-1)
+                                    caseQuery += $("#case" + caseNumber + "_insert_" + dbFields[k]).val();
+                                else caseQuery += "'" + $("#case" + caseNumber + "_insert_" + dbFields[k]).val() + "'";
                                 if (dbFields.length - 1 != k)
                                     caseQuery += ", ";
                             }
@@ -278,7 +287,9 @@ $(document).ready(function() {
                                 if ($("#case" + caseNumber + "_update_" + dbFields[k]).val().length > 0) {
                                     if (multiple)
                                         caseQuery += ", ";
-                                    caseQuery += dbFields[k] + " = '" + $("#case" + caseNumber + "_update_" + dbFields[k]).val() + "'";
+                                    if(dbFields[k] == "Data")
+                                        caseQuery += dbFields[k] + " = " + $("#case" + caseNumber + "_update_" + dbFields[k]).val();
+                                    else caseQuery += dbFields[k] + " = '" + $("#case" + caseNumber + "_update_" + dbFields[k]).val() + "'";
                                     multiple = true;
                                 }
                             }
@@ -293,7 +304,9 @@ $(document).ready(function() {
                                     if ($(".case" + caseNumber + "_filter" + caseCtr + "_text_update").val() > 0) {
                                         if (multi)
                                             caseQuery += " AND ";
-                                        caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_update").val() + " '" + $(".case" + caseNumber + "_filter" + caseCtr + "_text_update").val() + "'";
+                                        if($(el).val() == "ID")
+                                            caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_update").val() + " " + $(".case" + caseNumber + "_filter" + caseCtr + "_text_update").val();
+                                        else caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_update").val() + " '" + $(".case" + caseNumber + "_filter" + caseCtr + "_text_update").val() + "'";
                                         multi = true;
                                     }
                                 });
@@ -311,7 +324,9 @@ $(document).ready(function() {
                                     if ($(".case" + caseNumber + "_filter" + caseCtr + "_text_delete").val() > 0) {
                                         if (multi)
                                             caseQuery += " AND ";
-                                        caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_delete").val() + " '" + $(".case" + caseNumber + "_filter" + caseCtr + "_text_delete").val() + "'";
+                                        if($(el).val() == "ID")
+                                            caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_delete").val() + " " + $(".case" + caseNumber + "_filter" + caseCtr + "_text_delete").val();
+                                        else caseQuery += $(el).val() + " " + $(".case" + caseNumber + "_operators_delete").val() + " '" + $(".case" + caseNumber + "_filter" + caseCtr + "_text_delete").val() + "'";
                                         multi = true;
                                     }
                                 });

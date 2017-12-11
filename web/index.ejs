@@ -12,6 +12,9 @@
     <body>
         <form action='submitQuery' method='POST' id='submitQueryForm'>
             <input id="newQuery" name="newQuery" style="display:none;">
+            <input id="actionType" name="actionType" style="display:none;">
+            <input id="node" name="node" style="display:none;">
+            <input id="abort" name="abort" style="display:none;">
         <div id='container'>
             <header id='header'>
                 <p id='header_text'>ADVANDB MCO3: Distributed Databases</p>
@@ -25,6 +28,9 @@
                         <label for='trans_<%=input_type[1]%><%=i+1%>'>Case <%=i+1%></label>
                     <% } %>
                     
+                    <input type='checkbox' name='abort_checkbox' value='Abort' id = "abortCB">
+                    <label for='abort_checkbox'>Abort</label>
+
                     <button id='trans_run_btn' name='trans_run' type='submit'>RUN</button>
                 </div>
                 <div id='transaction_details_div'>
@@ -84,11 +90,18 @@
                 </div>
                 <div id='console_div'>
                     <p class='sect_titles'>CONSOLE LOG</p>
-                    <textarea id='console_textarea' name='console_textarea'>
+                    <%=status%>
+                    <table id='console_textarea' name='console_textarea'>
+                        
                         <% for(r in results) { %>
-                        <%=results[r].SeriesName%>
+                        <tr>
+                        <th><%=results[r].ID%></th>
+                        <th><%=results[r].CountryName%></th>
+                        <th><%=results[r].SeriesName%></th>
+                        <th><%=results[r].Data%></th>
+                        </tr>
                         <% } %>
-                    </textarea>
+                    </table>
                 </div>
             </section><br><br><br>
         </div>
